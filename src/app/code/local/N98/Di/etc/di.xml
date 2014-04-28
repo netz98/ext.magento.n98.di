@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config>
+    <preference for="N98_Di_Model_Sample_Foo" name="N98_Di_Model_Sample_Bar" />
+</config>

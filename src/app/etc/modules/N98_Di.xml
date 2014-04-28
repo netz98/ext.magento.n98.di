@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <N98_Di>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends></depends>
+        </N98_Di>
+    </modules>
+</config>
