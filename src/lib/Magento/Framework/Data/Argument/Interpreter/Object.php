@@ -1,6 +1,5 @@
 <?php
 /**
- * Object Manager class definition interface
  *
  * Magento
  *
@@ -24,30 +23,36 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Definition
+class Magento_Framework_Data_Argument_Interpreter_Object
+    implements Magento_Framework_Data_Argument_InterpreterInterface
 {
     /**
-     * Get list of method parameters
-     *
-     * Retrieve an ordered list of constructor parameters.
-     * Each value is an array with following entries:
-     *
-     * array(
-     *     0, // string: Parameter name
-     *     1, // string|null: Parameter type
-     *     2, // bool: whether this param is required
-     *     3, // mixed: default value
-     * );
-     *
-     * @param string $className
-     * @return array|null
+     * @var Magento_Framework_Stdlib_BooleanUtils
      */
-    public function getParameters($className);
+    protected $booleanUtils;
 
     /**
-     * Retrieve list of all classes covered with definitions
-     *
-     * @return array
+     * @param Magento_Framework_Stdlib_BooleanUtils $booleanUtils
      */
-    public function getClasses();
+    public function __construct(Magento_Framework_Stdlib_BooleanUtils $booleanUtils)
+    {
+        $this->booleanUtils = $booleanUtils;
+    }
+
+    /**
+     * Compute and return effective value of an argument
+     *
+     * @param array $data
+     * @return mixed
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
+     */
+    public function evaluate(array $data)
+    {
+        $result = array('instance' => $data['value']);
+        if (isset($data['shared'])) {
+            $result['shared'] = $this->booleanUtils->toBoolean($data['shared']);
+        }
+        return $result;
+    }
 }

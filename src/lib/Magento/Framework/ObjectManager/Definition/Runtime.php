@@ -1,6 +1,6 @@
 <?php
 /**
- * Object Manager class definition interface
+ * Runtime class definitions. \Reflection is used to parse constructor signatures. Should be used only in dev mode.
  *
  * Magento
  *
@@ -24,8 +24,29 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Definition
+class Magento_Framework_ObjectManager_Definition_Runtime
 {
+    /**
+     * @var array
+     */
+    protected $_definitions = array();
+
+    /**
+     * @var Magento_Framework_Code_Reader_ClassReader
+     */
+    protected $_reader = null;
+
+    /**
+     * @param Magento_Framework_Code_Reader_ClassReader $reader
+     */
+    public function __construct(Magento_Framework_Code_Reader_ClassReader $reader = null)
+    {
+        if ($reader == null) {
+            $reader = new Magento_Framework_Code_Reader_ClassReader();
+        }
+        $this->_reader = $reader;
+    }
+
     /**
      * Get list of method parameters
      *
@@ -42,12 +63,21 @@ interface Magento_Framework_ObjectManager_Definition
      * @param string $className
      * @return array|null
      */
-    public function getParameters($className);
+    public function getParameters($className)
+    {
+        if (!array_key_exists($className, $this->_definitions)) {
+            $this->_definitions[$className] = $this->_reader->getConstructor($className);
+        }
+        return $this->_definitions[$className];
+    }
 
     /**
      * Retrieve list of all classes covered with definitions
      *
      * @return array
      */
-    public function getClasses();
+    public function getClasses()
+    {
+        return array();
+    }
 }

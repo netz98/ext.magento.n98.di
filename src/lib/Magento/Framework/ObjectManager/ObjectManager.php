@@ -44,7 +44,7 @@ class Magento_Framework_ObjectManager_ObjectManager implements Magento_Framework
     protected $_sharedInstances = array();
 
     /**
-     * @var Config\Config
+     * @var Magento_Framework_ObjectManager_Config
      */
     protected $_config;
 

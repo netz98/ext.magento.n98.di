@@ -1,6 +1,6 @@
 <?php
 /**
- * Object Manager class definition interface
+ * Object manager configuration schema locator
  *
  * Magento
  *
@@ -24,30 +24,26 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Definition
+class Magento_Framework_ObjectManager_Config_SchemaLocator
+    implements Magento_Framework_Config_SchemaLocatorInterface
 {
     /**
-     * Get list of method parameters
+     * Get path to merged config schema
      *
-     * Retrieve an ordered list of constructor parameters.
-     * Each value is an array with following entries:
-     *
-     * array(
-     *     0, // string: Parameter name
-     *     1, // string|null: Parameter type
-     *     2, // bool: whether this param is required
-     *     3, // mixed: default value
-     * );
-     *
-     * @param string $className
-     * @return array|null
+     * @return string
      */
-    public function getParameters($className);
+    public function getSchema()
+    {
+        return realpath(__DIR__ . '/../etc/') . '/config.xsd';
+    }
 
     /**
-     * Retrieve list of all classes covered with definitions
+     * Get path to pre file validation schema
      *
-     * @return array
+     * @return null
      */
-    public function getClasses();
+    public function getPerFileSchema()
+    {
+        return null;
+    }
 }

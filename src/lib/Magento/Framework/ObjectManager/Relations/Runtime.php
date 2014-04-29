@@ -22,15 +22,41 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Relations
+class Magento_Framework_ObjectManager_Relations_Runtime
 {
+    /**
+     * @var Magento_Framework_Code_Reader_ClassReader
+     */
+    protected $_classReader;
+
+    /**
+     * Default behavior
+     *
+     * @var array
+     */
+    protected $_default = array();
+
+    /**
+     * @param Magento_Framework_Code_Reader_ClassReader $classReader
+     */
+    public function __construct(Magento_Framework_Code_Reader_ClassReader $classReader = null)
+    {
+        if ($classReader === null) {
+            $classReader = new Magento_Framework_Code_Reader_ClassReader();
+        }
+        $this->_classReader = $classReader;
+    }
+
     /**
      * Check whether requested type is available for read
      *
      * @param string $type
      * @return bool
      */
-    public function has($type);
+    public function has($type)
+    {
+        return class_exists($type) || interface_exists($type);
+    }
 
     /**
      * Retrieve list of parents
@@ -38,5 +64,11 @@ interface Magento_Framework_ObjectManager_Relations
      * @param string $type
      * @return array
      */
-    public function getParents($type);
+    public function getParents($type)
+    {
+        if (!class_exists($type)) {
+            return $this->_default;
+        }
+        return $this->_classReader->getParents($type) ?: $this->_default;
+    }
 }

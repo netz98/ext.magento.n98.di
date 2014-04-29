@@ -17,26 +17,18 @@
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
- *
+ * 
  * @copyright Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Relations
+interface Magento_Framework_Config_ConverterInterface
 {
     /**
-     * Check whether requested type is available for read
+     * Convert config
      *
-     * @param string $type
-     * @return bool
-     */
-    public function has($type);
-
-    /**
-     * Retrieve list of parents
-     *
-     * @param string $type
+     * @param \DOMDocument $source
      * @return array
      */
-    public function getParents($type);
+    public function convert($source);
 }

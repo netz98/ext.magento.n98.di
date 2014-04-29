@@ -1,7 +1,5 @@
 <?php
 /**
- * Object Manager class definition interface
- *
  * Magento
  *
  * NOTICE OF LICENSE
@@ -24,30 +22,19 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Definition
+/**
+ * Interface that encapsulates complexity of expression computation
+ */
+interface Magento_Framework_Data_Argument_InterpreterInterface
 {
     /**
-     * Get list of method parameters
+     * Compute and return effective value of an argument
      *
-     * Retrieve an ordered list of constructor parameters.
-     * Each value is an array with following entries:
-     *
-     * array(
-     *     0, // string: Parameter name
-     *     1, // string|null: Parameter type
-     *     2, // bool: whether this param is required
-     *     3, // mixed: default value
-     * );
-     *
-     * @param string $className
-     * @return array|null
+     * @param array $data
+     * @return mixed
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
+     * @throws MissingOptionalValueException
      */
-    public function getParameters($className);
-
-    /**
-     * Retrieve list of all classes covered with definitions
-     *
-     * @return array
-     */
-    public function getClasses();
+    public function evaluate(array $data);
 }

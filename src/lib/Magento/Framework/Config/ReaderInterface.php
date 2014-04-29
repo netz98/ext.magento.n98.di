@@ -1,5 +1,7 @@
 <?php
 /**
+ * Reader responsible for retrieving provided scope of configuration from storage
+ *
  * Magento
  *
  * NOTICE OF LICENSE
@@ -17,26 +19,18 @@
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
- *
+ * 
  * @copyright Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Relations
+interface Magento_Framework_Config_ReaderInterface
 {
     /**
-     * Check whether requested type is available for read
+     * Read configuration scope
      *
-     * @param string $type
-     * @return bool
-     */
-    public function has($type);
-
-    /**
-     * Retrieve list of parents
-     *
-     * @param string $type
+     * @param string|null $scope
      * @return array
      */
-    public function getParents($type);
+    public function read($scope = null);
 }

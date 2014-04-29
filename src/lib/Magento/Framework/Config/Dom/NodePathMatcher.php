@@ -1,7 +1,5 @@
 <?php
 /**
- * Object Manager class definition interface
- *
  * Magento
  *
  * NOTICE OF LICENSE
@@ -24,30 +22,36 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Definition
+/**
+ * Matching of XPath expressions to path patterns
+ */
+class Magento_Framework_Config_Dom_NodePathMatcher
 {
     /**
-     * Get list of method parameters
+     * Whether a subject XPath matches to a given path pattern
      *
-     * Retrieve an ordered list of constructor parameters.
-     * Each value is an array with following entries:
-     *
-     * array(
-     *     0, // string: Parameter name
-     *     1, // string|null: Parameter type
-     *     2, // bool: whether this param is required
-     *     3, // mixed: default value
-     * );
-     *
-     * @param string $className
-     * @return array|null
+     * @param string $pathPattern Example: '/some/static/path' or '/some/regexp/path(/item)+'
+     * @param string $xpathSubject Example: '/some[@attr="value"]/static/ns:path'
+     * @return bool
      */
-    public function getParameters($className);
+    public function match($pathPattern, $xpathSubject)
+    {
+        $pathSubject = $this->simplifyXpath($xpathSubject);
+        $pathPattern = '#^' . $pathPattern . '$#';
+        return (bool)preg_match($pathPattern, $pathSubject);
+    }
 
     /**
-     * Retrieve list of all classes covered with definitions
+     * Strip off predicates and namespaces from the XPath
      *
-     * @return array
+     * @param string $xpath
+     * @return string
      */
-    public function getClasses();
+    protected function simplifyXpath($xpath)
+    {
+        $result = $xpath;
+        $result = preg_replace('/\[@[^\]]+?\]/', '', $result);
+        $result = preg_replace('/\/[^:]+?\:/', '/', $result);
+        return $result;
+    }
 }
