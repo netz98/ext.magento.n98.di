@@ -25,6 +25,7 @@
  */
 
 class Magento_Framework_ObjectManager_Definition_Runtime
+    implements Magento_Framework_ObjectManager_Definition
 {
     /**
      * @var array

@@ -23,6 +23,7 @@
  */
 
 class Magento_Framework_ObjectManager_Relations_Runtime
+    implements Magento_Framework_ObjectManager_Relations
 {
     /**
      * @var Magento_Framework_Code_Reader_ClassReader

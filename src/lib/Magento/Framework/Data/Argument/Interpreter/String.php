@@ -29,14 +29,14 @@ class Magento_Framework_Data_Argument_Interpreter_String
     implements Magento_Framework_Data_Argument_InterpreterInterface
 {
     /**
-     * @var BooleanUtils
+     * @var Magento_Framework_Stdlib_BooleanUtils
      */
     private $booleanUtils;
 
     /**
-     * @param BooleanUtils $booleanUtils
+     * @param Magento_Framework_Stdlib_BooleanUtils $booleanUtils
      */
-    public function __construct(BooleanUtils $booleanUtils)
+    public function __construct(Magento_Framework_Stdlib_BooleanUtils $booleanUtils)
     {
         $this->booleanUtils = $booleanUtils;
     }

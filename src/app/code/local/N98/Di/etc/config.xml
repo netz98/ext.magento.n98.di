@@ -15,7 +15,28 @@
                 <class>N98_Di_Model</class>
             </n98_di>
         </models>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <n98_di>
+                        <class>n98_di/action_predispatch_observer</class>
+                        <method>registerContainer</method>
+                    </n98_di>
+                </observers>
+            </controller_action_predispatch>
+        </events>
     </global>
+    <frontend>
+        <routers>
+            <n98_di>
+                <use>standard</use>
+                <args>
+                    <module>N98_Di</module>
+                    <frontName>di</frontName>
+                </args>
+            </n98_di>
+        </routers>
+    </frontend>
     <phpunit>
         <suite>
             <modules>

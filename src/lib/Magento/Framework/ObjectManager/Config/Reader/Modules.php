@@ -29,14 +29,7 @@ class Magento_Framework_ObjectManager_Config_Reader_Modules implements Magento_F
             $schemaFile
         );
 
-        //$configXml = Mage::getConfig()->loadModulesConfiguration('di.xml', null, $mergerModel);
-        //$domDocument = new DOMDocument();
-        //$domDocument->loadXML();
-
-        $config->merge(file_get_contents(Mage::getModuleDir('etc', 'N98_Di') . '/di.xml'));
-
-        //$converter = new Magento_Framework_Config_Converter_Dom();
-        //$data = $converter->convert();
+        $config = $this->_loadModulesConfiguration($config);
 
         $booleanUtils = new Magento_Framework_Stdlib_BooleanUtils();
         $constInterpreter = new Magento_Framework_Data_Argument_Interpreter_Constant();
@@ -58,5 +51,31 @@ class Magento_Framework_ObjectManager_Config_Reader_Modules implements Magento_F
         $mapper = new Magento_Framework_ObjectManager_Config_Mapper_Dom($result);
 
         return $mapper->convert($config->getDom());
+    }
+
+    /**
+     * Iterate all active modules "etc" folders and combine data from
+     * specidied xml file name to one object
+     *
+     * @param Magento_Framework_Config_Dom $config
+     * @return \Magento_Framework_Config_Dom
+     */
+    protected function _loadModulesConfiguration(Magento_Framework_Config_Dom $config)
+    {
+        $configFileName = 'di.xml';
+
+        $coreConfig = Mage::app()->getConfig();
+
+        $modules = $coreConfig->getNode('modules')->children();
+        foreach ($modules as $modName => $module) {
+            if ($module->is('active')) {
+                $configFile = $coreConfig->getModuleDir('etc', $modName) . DS . $configFileName;
+                if (file_exists($configFile)) {
+                    $config->merge(file_get_contents($configFile));
+                }
+            }
+        }
+
+        return $config;
     }
 }
