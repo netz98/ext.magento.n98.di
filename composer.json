@@ -1,0 +1,11 @@
+{
+    "name": "n98/ext.magento.n98.di",
+    "type": "magento-module",
+    "description": "DependencyInjection Framework (Backport from Magento 2)",
+    "authors":[
+        {
+            "name":"netz98 new media GmbH",
+            "email":"magento@netz98.de"
+        }
+    ]
+}
