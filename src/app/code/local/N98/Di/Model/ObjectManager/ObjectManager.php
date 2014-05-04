@@ -16,6 +16,9 @@
 
 class N98_Di_Model_ObjectManager_ObjectManager
 {
+    const CACHE_TAG = 'N98_DI';
+    const CACHE_KEY = 'n98_di_config';
+    const CACHE_TYPE = 'n98_di';
     /**
      * @type string
      */
@@ -27,8 +30,19 @@ class N98_Di_Model_ObjectManager_ObjectManager
     public static function getInstance()
     {
         if (($objectManager = Mage::registry(self::REGISTRY_KEY)) === null) {
-            $configReader = new Magento_Framework_ObjectManager_Config_Reader_Modules();
-            $configArray = $configReader->read('global');
+            $configArray = array();
+            $useCache = Mage::app()->useCache(self::CACHE_TYPE);
+            if ($useCache) {
+                $configArray = unserialize(Mage::app()->loadCache(self::CACHE_KEY));
+            }
+
+            if (!$configArray) {
+                $configReader = new Magento_Framework_ObjectManager_Config_Reader_Modules();
+                $configArray = $configReader->read('global');
+                if ($useCache) {
+                    Mage::app()->saveCache(serialize($configArray), array(self::CACHE_TAG));
+                }
+            }
 
             /**
              * @link https://wiki.magento.com/display/MAGE2DOC/Using+Dependency+Injection#ObjectManager

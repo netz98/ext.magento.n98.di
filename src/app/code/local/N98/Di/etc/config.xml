@@ -25,6 +25,15 @@
                 </observers>
             </controller_action_predispatch>
         </events>
+        <cache>
+            <types>
+                <n98_di translate="label,description" module="core">
+                    <label>Dependency Injection Configuration</label>
+                    <description>di.xml config files of each module.</description>
+                    <tags>N98_DI</tags>
+                </n98_di>
+            </types>
+        </cache>
     </global>
     <frontend>
         <routers>
