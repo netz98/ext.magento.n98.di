@@ -16,9 +16,21 @@
 
 class N98_Di_Model_ObjectManager_ObjectManager
 {
+    /**
+     * @type string
+     */
     const CACHE_TAG = 'N98_DI';
+
+    /**
+     * @type string
+     */
     const CACHE_KEY = 'n98_di_config';
+
+    /**
+     * @type string
+     */
     const CACHE_TYPE = 'n98_di';
+
     /**
      * @type string
      */
