@@ -17,21 +17,42 @@
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
- *
+ * 
  * @copyright Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace Magento\Test\Di\Child\Interceptor;
 
-interface Magento_Framework_ObjectManager_Factory
+class A
 {
     /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
+     * @var string
      */
-    public function create($requestedType, array $arguments = array());
+    protected $_wrapperSym;
+
+    /**
+     * @param string $wrapperSym
+     */
+    public function __construct($wrapperSym = 'A')
+    {
+        $this->_wrapperSym = $wrapperSym;
+    }
+
+    /**
+     * @param string $param
+     * @return string
+     */
+    public function wrapBefore($param)
+    {
+        return $this->_wrapperSym . $param . $this->_wrapperSym;
+    }
+
+    /**
+     * @param string $returnValue
+     * @return string
+     */
+    public function wrapAfter($returnValue)
+    {
+        return '_' . $this->_wrapperSym . '_' . $returnValue . '_' . $this->_wrapperSym . '_';
+    }
 }

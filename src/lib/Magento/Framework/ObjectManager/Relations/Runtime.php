@@ -56,7 +56,7 @@ class Magento_Framework_ObjectManager_Relations_Runtime
      */
     public function has($type)
     {
-        return class_exists($type) || interface_exists($type);
+        return @class_exists($type) || @interface_exists($type);
     }
 
     /**

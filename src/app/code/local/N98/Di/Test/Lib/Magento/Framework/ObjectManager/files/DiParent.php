@@ -22,16 +22,29 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+require_once __DIR__ . '/DiInterface.php';
+
+class Magento_Test_Di_DiParent implements \Magento_Test_Di_DiInterface
 {
     /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
+     * @var string
      */
-    public function create($requestedType, array $arguments = array());
+    protected $_wrapperSymbol;
+
+    /**
+     * @param string $wrapperSymbol
+     */
+    public function __construct($wrapperSymbol = '|')
+    {
+        $this->_wrapperSymbol = $wrapperSymbol;
+    }
+
+    /**
+     * @param string $param
+     * @return mixed
+     */
+    public function wrap($param)
+    {
+        return $this->_wrapperSymbol . $param . $this->_wrapperSymbol;
+    }
 }

@@ -17,21 +17,34 @@
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
- *
+ * 
  * @copyright Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+class Magento_Test_Di_Aggregate_AggregateParent implements Magento_Test_Di_Aggregate_AggregateInterface
 {
-    /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
-     */
-    public function create($requestedType, array $arguments = array());
+    public $interface;
+
+    public $parent;
+
+    public $child;
+
+    public $scalar;
+
+    public $optionalScalar;
+
+    public function __construct(
+        \Magento_Test_Di_DiInterface $interface,
+        \Magento_Test_Di_DiParent $parent,
+        \Magento_Test_Di_Child $child,
+        $scalar,
+        $optionalScalar = 1
+    ) {
+        $this->interface = $interface;
+        $this->parent = $parent;
+        $this->child = $child;
+        $this->scalar = $scalar;
+        $this->optionalScalar = $optionalScalar;
+    }
 }

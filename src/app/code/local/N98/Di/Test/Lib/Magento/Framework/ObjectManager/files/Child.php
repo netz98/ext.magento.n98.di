@@ -22,16 +22,9 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+require_once __DIR__ . '/DiParent.php';
+require_once __DIR__ . '/ChildInterface.php';
+
+class Magento_Test_Di_Child extends Magento_Test_Di_DiParent implements \Magento_Test_Di_ChildInterface
 {
-    /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
-     */
-    public function create($requestedType, array $arguments = array());
 }

@@ -21,11 +21,13 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface N98_Di_ContainerAwareInterface
+class N98_Di_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
-     * @param Magento_Framework_ObjectManager $objectManager
-     * @return mixed
+     * @return Magento_Framework_ObjectManager
      */
-    public function setContainer(Magento_Framework_ObjectManager $objectManager);
+    public function getObjectManager()
+    {
+        return N98_Di_Model_ObjectManager_ObjectManager::getInstance();
+    }
 }

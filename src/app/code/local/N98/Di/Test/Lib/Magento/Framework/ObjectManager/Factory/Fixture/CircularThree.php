@@ -22,16 +22,16 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+/**
+ * Part of the chain for circular dependency test
+ */
+class Magento_Framework_ObjectManager_Factory_Fixture_CircularThree
 {
     /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
+     * @param Magento_Framework_ObjectManager_Factory_Fixture_CircularOne $one
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function create($requestedType, array $arguments = array());
+    public function __construct(Magento_Framework_ObjectManager_Factory_Fixture_CircularOne $one)
+    {
+    }
 }

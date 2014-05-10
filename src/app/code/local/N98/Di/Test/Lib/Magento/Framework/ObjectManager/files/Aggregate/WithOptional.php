@@ -22,16 +22,15 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+class Magento_Test_Di_Aggregate_WithOptional
 {
-    /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
-     */
-    public function create($requestedType, array $arguments = array());
+    public $parent;
+
+    public $child;
+
+    public function __construct(\Magento_Test_Di_DiParent $parent = null, \Magento_Test_Di_Child $child = null)
+    {
+        $this->parent = $parent;
+        $this->child = $child;
+    }
 }

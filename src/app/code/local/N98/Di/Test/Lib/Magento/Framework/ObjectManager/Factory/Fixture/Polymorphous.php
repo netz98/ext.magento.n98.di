@@ -22,16 +22,27 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+/**
+ * Constructor with undefined number of arguments
+ */
+class Magento_Framework_ObjectManager_Factory_Fixture_Polymorphous
 {
     /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
+     * @var array
      */
-    public function create($requestedType, array $arguments = array());
+    private $args;
+
+    public function __construct()
+    {
+        $this->args = func_get_args();
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function getArg($key)
+    {
+        return isset($this->args[$key]) ? $this->args[$key] : null;
+    }
 }

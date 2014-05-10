@@ -22,16 +22,29 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+/**
+ * A "value object" style constructor that requires one non-injectable argument
+ */
+class Magento_Framework_ObjectManager_Factory_Fixture_OneScalar
 {
     /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
+     * @var string
      */
-    public function create($requestedType, array $arguments = array());
+    private $foo;
+
+    /**
+     * @param string $foo
+     */
+    public function __construct($foo)
+    {
+        $this->foo = $foo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFoo()
+    {
+        return $this->foo;
+    }
 }

@@ -19,19 +19,16 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @copyright Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
- * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+class Magento_Test_Di_Child_Circular extends \Magento_Test_Di_Child
 {
     /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
+     * @param \Magento_Test_Di_Aggregate_AggregateParent $aggregateParent
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function create($requestedType, array $arguments = array());
+    public function __construct(\Magento_Test_Di_Aggregate_AggregateParent $aggregateParent)
+    {
+    }
 }

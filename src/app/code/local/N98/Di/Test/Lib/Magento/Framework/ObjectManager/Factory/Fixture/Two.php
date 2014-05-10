@@ -22,16 +22,44 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-interface Magento_Framework_ObjectManager_Factory
+/**
+ * A constructor with 2 dependencies: one injectable, another scalar
+ */
+class Magento_Framework_ObjectManager_Factory_Fixture_Two
 {
     /**
-     * Create instance with call time arguments
-     *
-     * @param string $requestedType
-     * @param array $arguments
-     * @return object
-     * @throws \LogicException
-     * @throws \BadMethodCallException
+     * @var Magento_Framework_ObjectManager_Factory_Fixture_OneScalar
      */
-    public function create($requestedType, array $arguments = array());
+    private $one;
+
+    /**
+     * @var string
+     */
+    private $baz;
+
+    /**
+     * @param Magento_Framework_ObjectManager_Factory_Fixture_OneScalar $one
+     * @param string $baz
+     */
+    public function __construct(Magento_Framework_ObjectManager_Factory_Fixture_OneScalar $one, $baz = 'optional')
+    {
+        $this->one = $one;
+        $this->baz = $baz;
+    }
+
+    /**
+     * @return Magento_Framework_ObjectManager_Factory_Fixture_OneScalar
+     */
+    public function getOne()
+    {
+        return $this->one;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaz()
+    {
+        return $this->baz;
+    }
 }

@@ -96,12 +96,12 @@ class Magento_Framework_ObjectManager_Config_Config
         Magento_Framework_ObjectManager_Definition $definitions = null
     ) {
         if ($relations === null) {
-            $relations = new Magento_Framework_ObjectManager_Relations();
+            $relations = new Magento_Framework_ObjectManager_Relations_Runtime();
         }
         $this->_relations = $relations;
 
         if ($definitions === null) {
-            $definitions = new Magento_Framework_ObjectManager_Definition();
+            $definitions = new Magento_Framework_ObjectManager_Definition_Runtime();
         }
         $this->_definitions = $definitions;
     }
