@@ -99,3 +99,12 @@ $objectManager = Mage::helper('n98_di')->getObjectManager();
 $bar = $objectManager->create('Acme_Foo_Model_Bar');
 ```   
    
+   
+Known problems
+--------------
+
+The module is very experimental.
+Currently not all parts of the dependency injection framework are ported.
+This includes features like the definition compiler or the interceptors (plugins).
+
+
